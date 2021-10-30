@@ -21,7 +21,13 @@ def Mode(hist):
 
     returns: value from Hist
     """
-    return 0
+    max = 0
+    for weeks, freq in hist.Items():
+        if freq > max:
+            max = freq
+            mod = weeks
+
+    return mod
 
 
 def AllModes(hist):
@@ -31,7 +37,13 @@ def AllModes(hist):
 
     returns: iterator of value-freq pairs
     """
-    return []
+    return list(hist.Items())
+
+def first_lighter(first_weights, other_weights):
+    print(first_weights.mean())
+    print(other_weights.mean())
+    return first_weights.mean() < other_weights.mean()
+
 
 
 def main(script):
@@ -42,17 +54,19 @@ def main(script):
     live, firsts, others = first.MakeFrames()
     hist = thinkstats2.Hist(live.prglngth)
 
-    # test Mode    
+    # test Mode
     mode = Mode(hist)
-    print('Mode of preg length', mode)
+    # print('Mode of preg length', mode)
     assert mode == 39, mode
 
     # test AllModes
     modes = AllModes(hist)
     assert modes[0][1] == 4693, modes[0][1]
 
-    for value, freq in modes[:5]:
-        print(value, freq)
+    # for value, freq in modes[:5]:
+    #     print(value, freq)
+
+    assert first_lighter(firsts.totalwgt_lb, others.totalwgt_lb)
 
     print('%s: All tests passed.' % script)
 

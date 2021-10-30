@@ -48,7 +48,7 @@ def ValidatePregnum(resp):
 
     # make the map from caseid to list of pregnancy indices
     preg_map = nsfg.MakePregMap(preg)
-    
+
     # iterate through the respondent pregnum series
     for index, pregnum in resp.pregnum.items():
         caseid = resp.caseid[index]
@@ -70,7 +70,7 @@ def main(script):
     """
     resp = ReadFemResp()
 
-    assert(len(resp) == 7643)
+    assert(len(resp) == 2)
     assert(resp.pregnum.value_counts()[1] == 1267)
     assert(ValidatePregnum(resp))
 
